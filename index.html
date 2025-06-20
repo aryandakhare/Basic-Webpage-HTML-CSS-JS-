@@ -3,44 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ApexPlanet Task 1</title>
+    <title>Interactive Webpage | ApexPlanet</title>
     <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #4DAAF8;
+            --dark: #2D3748;
+            --light: #F7FAFC;
+        }
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 90%;
+            max-width: 600px;
+            transition: transform 0.3s;
+        }
+        .container:hover {
+            transform: translateY(-5px);
         }
         h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
+            color: var(--primary);
+            margin-bottom: 10px;
         }
-        img {
-            width: 200px;
-            border-radius: 10px;
+        p {
+            color: var(--dark);
+            margin-bottom: 30px;
         }
-        button {
-            background-color: #3498db;
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--secondary);
+            margin: 0 auto 20px;
+            display: block;
+        }
+        .btn {
+            background: var(--primary);
             color: white;
-            padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 16px;
             cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        }
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(77, 170, 248, 0.4);
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #718096;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Basic Webpage</h1>
-    <p>This is a simple webpage created for ApexPlanet's Task 1.</p>
-    <img src="https://via.placeholder.com/200" alt="Sample Image">
-    <br><br>
-    <button onclick="showAlert()">Click Me!</button>
+    <div class="container">
+        <img src="https://ui-avatars.com/api/?name=Aryan+D&background=6C63FF&color=fff" alt="Profile" class="profile-img">
+        <h1>Welcome to My Interactive Page</h1>
+        <p>This dynamic webpage was created for <strong>ApexPlanet's Internship Task 1</strong> with enhanced UI/UX</p>
+        <button class="btn" id="actionBtn">Click for Magic!</button>
+        <div id="dynamicContent" style="margin-top:20px;"></div>
+        <footer>
+            Developed by <strong>Aryan Dakhare</strong> as a Web Development Intern at ApexPlanet
+        </footer>
+    </div>
 
     <script>
-        function showAlert() {
-            alert("Hello from ApexPlanet Internship!");
-        }
+        const btn = document.getElementById('actionBtn');
+        const content = document.getElementById('dynamicContent');
+        
+        btn.addEventListener('click', () => {
+            // Create confetti effect
+            for(let i=0; i<50; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'absolute';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
+                confetti.style.borderRadius = '50%';
+                confetti.style.left = `${Math.random()*100}%`;
+                confetti.style.animation = `fall ${Math.random()*2+1}s linear forwards`;
+                
+                document.body.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+            
+            // Update content
+            content.innerHTML = `
+                <div style="background:#E9F7FE; padding:15px; border-radius:10px;">
+                    <h3 style="color:var(--primary); margin-top:0;">✨ Task Success!</h3>
+                    <p>You've triggered an interactive animation!</p>
+                </div>
+            `;
+        });
+
+        // Add CSS for animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
